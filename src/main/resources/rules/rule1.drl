@@ -1,0 +1,13 @@
+rule "Polska?"
+when
+       userInteractionProvider : UserInteractionProvider()
+       state : VacationDecisionState()
+then
+    String content = "Czy chcesz spędzić wakacje w Polsce?"; ArrayList<String> answersAndResultingDecisions = new ArrayList<String>() {{
+    add("Tak");
+    add("Nie"); }};
+    Question question = new Question(content, answersAndResultingDecisions);
+    String decision = userInteractionProvider.getUserInteraction().askQuestionAndGetAnswer(question);
+modify
+    (state) {setIsInPoland(decision == "Tak")}
+    end
